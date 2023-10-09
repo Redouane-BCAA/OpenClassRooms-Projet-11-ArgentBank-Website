@@ -25,6 +25,11 @@ body {
   padding-top: 0.5rem;
   padding-bottom: 24rem;
 }
+.user-bg-dark {
+  background-color: #12002b;
+  padding-top: 0.5rem;
+  padding-bottom: 0.1rem;
+}
 
 .sr-only {
   border: 0 !important;
@@ -191,6 +196,10 @@ body {
 .sign-in-icon {
   font-size: 1rem;
 }
+.error-txt{
+  color: red;
+  margin-top: 5px ;
+}
 
 .input-remember {
   display: flex;
@@ -301,5 +310,10 @@ body {
 
   .transaction-button {
     width: 200px;
+  }
+  .user-bg-dark {
+    background-color: #12002b;
+    padding-top: 0.5rem;
+    padding-bottom: 8rem;
   }
 }

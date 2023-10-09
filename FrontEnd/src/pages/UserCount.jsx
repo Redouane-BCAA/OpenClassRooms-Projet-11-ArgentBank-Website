@@ -3,7 +3,7 @@ import Account from '../components/Account'
 
 export default function UserCount() {
   return (
-    <div className='main sign-in-bg-dark'>
+    <div className='main user-bg-dark'>
         <div className="header">
             <h1>Welcome back<br />Tony Jarvis!</h1>
             <button className="edit-button">Edit Name</button>
