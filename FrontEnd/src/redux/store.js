@@ -19,17 +19,22 @@ const authentificationSlice = createSlice({
         signOut: (state) => {
         // Quand utilisateur n'est pas connecté/déconnecté on supprime le token
             state.isConnected = false; 
-            state.token = null; 
+            state.token = null;
+            state.userData = null;
+        },
+        setUserInformation: (state, action) => {
+            state.userData = action.payload; // Stockage des données de l'utilisateur dans le store
         },
     },
+
 });
-export const { signIn, signOut } = authentificationSlice.actions;
+export const { signIn, signOut, setUserInformation } = authentificationSlice.actions;
 
 // Configure le store Redux 
 const store = configureStore({
     reducer: {
         // Utilisation du reducer du slice d'authentification
-        authentication: authentificationSlice.reducer, 
+        authentification: authentificationSlice.reducer, 
     },
 });
 
