@@ -8,6 +8,7 @@ export default function Header() {
   
   // on utilise useSelector pour obtenir l'état de l'authentification depuis le Redux store
   const isConnected = useSelector ((state) => state.authentification.isConnected)
+  const userInfo = useSelector((state) => state.authentification.userData)
 
   const dispatch = useDispatch();
 
@@ -32,8 +33,13 @@ export default function Header() {
           {/* On vérifie si l'utilisateur est connecté / modification du main nav item en fonction de l'état*/}
           {isConnected ? (
             <div>
-              <NavLink to="/signIn" className="main-nav-item" onClick={handleSignOut}>
+              <NavLink to="/user" className="main-nav-item">
+              <i className="fa fa-user-circle"></i>
+              {userInfo ? `${userInfo.body.userName}  ` : ''}
+            </NavLink>
+              
                 <i className="fa fa-sign-out"></i>
+              <NavLink to="/signin" className="main-nav-item" onClick={handleSignOut}>
                 Sign Out
               </NavLink>
             </div>)

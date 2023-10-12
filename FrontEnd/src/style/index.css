@@ -317,3 +317,58 @@ body {
     padding-bottom: 8rem;
   }
 }
+/* STYLE EDIT USERNAME FORM */ 
+
+  .edit-button-component{
+    display: flex; 
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .edit-form-container{
+    background-color: #fff;
+  }
+  .edit-form-container > h3{
+    font-size: 24px;
+  }
+  .edit-username-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .form-btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+  }
+  .input-container{
+    margin-left: 15px;
+  }
+  .input-container > input{
+    width: 45%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px #bdbdbd solid;
+  }
+  .input-container > input:disabled{
+    color: #868585;
+  }
+  .form-btn-container{
+    margin: 5px 15px;
+  }
+  .form-btn-container > button{
+    width: 50%;
+    padding: 10px 0px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+  }
+  
+
+.fa-user-circle{
+  margin-right: 5px;
+}
