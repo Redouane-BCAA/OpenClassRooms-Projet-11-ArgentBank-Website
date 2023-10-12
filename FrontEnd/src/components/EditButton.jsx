@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setUserInformation } from '../redux/store'
+import { setUserInformation, editUserNameInformation } from '../redux/store'
 
 
 export default function EditButton() {
 
     const token = useSelector ((state) => state.authentification.token)
-    const userInfo = useSelector((state) => state.authentification.userData)
+    const userInfo = useSelector((state) => state.userInformation.userData)
     const dispatch = useDispatch()
 
     const [newUserName, setnewUserName] = useState('')
@@ -16,7 +16,7 @@ export default function EditButton() {
     const displayEditForm = () => {
         setEditOn(true)
       // ici on initialise l'etat de newUserName au moment de l'ouverture du form pour éviter les erreur undefined
-        setnewUserName(userInfo.body.userName)
+        setnewUserName(userInfo.userName)
     }
     const closeEditForm = () => {
       setEditOn(false);
@@ -47,11 +47,11 @@ export default function EditButton() {
           const updatedUserName = data.body.userName;
 
           // on met à jour l'état Redux avec le nouveau nom d'utilisateur !!! ne fonctionne pas de cette manière !!!
-          // dispatch(setUserInformation(updatedUserName)) 
+          dispatch(editUserNameInformation(updatedUserName)) 
 
           // fonctionne de cette manière en on envois les nouvel information en créant un copie superficielle de usezInfo puis la même chose pou body avant de mettre à jour l'username
-          dispatch(setUserInformation({ ...userInfo, body: { ...userInfo.body, userName: updatedUserName } }))
-          // on ferme le formulaire après la modification réussi
+          // dispatch(setUserInformation({ ...userInfo, body: { ...userInfo.body, userName: updatedUserName } }))
+          // // on ferme le formulaire après la modification réussi
           setEditOn(false);
         })
         .catch((error) => {
@@ -83,7 +83,7 @@ export default function EditButton() {
                 <input 
                 type="text"
                 id='firstName'
-                defaultValue={userInfo.body.firstName}
+                defaultValue={userInfo.firstName}
                 readOnly
                 disabled
                 />
@@ -93,7 +93,7 @@ export default function EditButton() {
                 <input 
                 type="text"
                 id='lastName'
-                defaultValue={userInfo.body.lastName}
+                defaultValue={userInfo.lastName}
                 readOnly
                 disabled
                 />
@@ -110,7 +110,7 @@ export default function EditButton() {
         (
           <div>
               <div className="header">
-                <h1>Welcome back<br />{userInfo ? `${userInfo.body.firstName} ${userInfo.body.lastName}` : ''}</h1>
+                <h1>Welcome back<br />{userInfo ? `${userInfo.firstName} ${userInfo.lastName}` : ''}</h1>
                 <button className="edit-button" onClick={displayEditForm}>Edit Name</button>
             </div>
           </div>

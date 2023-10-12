@@ -2,15 +2,16 @@ import React from 'react'
 import { useEffect } from 'react'
 import Account from '../components/Account'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUserInformation } from '../redux/store'
+import { setUserInformation } from '../redux/userinformationslice'
 import EditButton from '../components/EditButton'
 
 export default function UserCount() {
   const dispatch = useDispatch();
   // recupérer le token dans le local storge
   // let userToken = window.localStorage.getItem('userToken');
-  const token = useSelector ((state) => state.authentification.token)
-  
+  const token = useSelector ((state) => state.authentification.token);
+  // console.log(token); vérification token ok 
+
 
   useEffect(() => { 
     const callUserProfile = async () => {
@@ -28,6 +29,7 @@ export default function UserCount() {
         }
 
         const data = await response.json();
+        console.log(data);
 
         // Stockez les informations de l'utilisateur dans le Redux store
         dispatch(setUserInformation(data));

@@ -2,13 +2,13 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import ArgentBankLogo from '../assets/argentBankLogo.png'
 import { useSelector, useDispatch } from 'react-redux';
-import { signOut } from '../redux/store';
+import { signOut } from '../redux/authentificationslice';
 
 export default function Header() {
   
   // on utilise useSelector pour obtenir l'état de l'authentification depuis le Redux store
   const isConnected = useSelector ((state) => state.authentification.isConnected)
-  const userInfo = useSelector((state) => state.authentification.userData)
+  const userInfo = useSelector((state) => state.userInformation.userData)
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ export default function Header() {
             <div>
               <NavLink to="/user" className="main-nav-item">
               <i className="fa fa-user-circle"></i>
-              {userInfo ? `${userInfo.body.userName}  ` : ''}
+              {userInfo ? `${userInfo.userName}  ` : ''}
             </NavLink>
               
                 <i className="fa fa-sign-out"></i>

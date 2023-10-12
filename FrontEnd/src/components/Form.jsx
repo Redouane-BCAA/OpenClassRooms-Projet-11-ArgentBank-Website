@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { signIn } from '../redux/store'
+import { signIn } from '../redux/authentificationslice'
 import { useDispatch } from 'react-redux'
 
 export default function Form() {
@@ -36,6 +36,7 @@ export default function Form() {
         const token = data.body.token;
         localStorage.setItem("token", JSON.stringify(token))
         dispatch(signIn(token));
+        // console.log(token); vérification token ok 
         // Si le token est bien présent on renvois l'user sur la page /user
         navigate('/user');
         })
