@@ -13,11 +13,6 @@ const userInformationSlice = createSlice({
     },
     reducers: {
         setUserInformation: (state, action) => {
-            // state.email = action.payload.email;
-            // state.password = action.payload.password;
-            // state.firstName = action.payload.firstName;
-            // state.lastName = action.payload.lastName;
-            // state.userName = action.payload.userName;
             state.userData = action.payload.body;
         },
         editUserNameInformation: (state, action) => {

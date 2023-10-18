@@ -81,7 +81,7 @@ body {
 }
 
 .hero {
-  background-image: url('../assets/bank-tree.jpeg');
+  background-image: url('../assets/bank-tree.webp');
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -371,4 +371,27 @@ body {
 
 .fa-user-circle{
   margin-right: 5px;
+}
+
+/* ERROR PAGE */
+.errorPage{
+  display: grid;
+  place-items: center;
+}
+.errorImg{
+  width: 100%;
+  margin-bottom: 20px;
+  object-fit: contain;
+  height: 70vh;
+}
+@media (max-width: 1000px) {
+  .errorTitle{
+    font-size: 18px;
+  }
+}
+
+.errorLink{
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: #00bc77;
 }
