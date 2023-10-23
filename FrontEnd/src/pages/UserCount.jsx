@@ -4,6 +4,7 @@ import Account from '../components/Account'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserInformation } from '../redux/userinformationslice'
 import EditButton from '../components/EditButton'
+import { getUserProfile } from '../Service/Api'
 
 export default function UserCount() {
   const dispatch = useDispatch();
@@ -15,27 +16,15 @@ export default function UserCount() {
 
   useEffect(() => { 
     const callUserProfile = async () => {
-      try {
-        // Requête à l'API pour avoir les informations de l'utilisateur
-        const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      // FUNCTION API GETUSERPROFILE (service/api.js)
+      getUserProfile(token)
+        .then((data) => {
+          // Stockez les informations de l'utilisateur dans le Redux store
+          dispatch(setUserInformation(data));
+        })
+        .catch((error) => {
+          alert(error.message);
         });
-
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des données');
-        }
-
-        const data = await response.json();
-        console.log(data);
-
-        // Stockez les informations de l'utilisateur dans le Redux store
-        dispatch(setUserInformation(data));
-      } catch (error) {
-        alert(error.message);
-      }
     };
     // Appele de la fonction fetchData pour récupérer les données
     callUserProfile(); 

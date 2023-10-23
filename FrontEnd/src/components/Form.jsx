@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signIn } from '../redux/authentificationslice'
 import { useDispatch } from 'react-redux'
+import { loginUser } from '../Service/Api'
 
 export default function Form() {
     const [email, setEmail] = useState("")
@@ -10,36 +11,43 @@ export default function Form() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+// ****************************GESTION "REMEMBERME" LOGIN INFORMATION**************************************************
+    // Récupèrer les valeurs stockées dans le localStorage au chargement de la page
+    useEffect(() => {
+        const rememberedEmail = localStorage.getItem("rememberedEmail");
+        const rememberedPassword = localStorage.getItem("rememberedPassword");
+
+        if (rememberedEmail && rememberedPassword) {
+        setEmail(rememberedEmail);
+        setPassword(rememberedPassword);
+        // Coche automatiquement la case "Remember me" si des valeurs sont présente
+        document.getElementById("remember-me").checked = true;
+        }
+    }, []);
+
+// ****************************FUNCTION LOGIN **************************************************
     const Connection=(e)=>{
         e.preventDefault();
+        // FUNCTION API LOGINUSER (service/api.js)
+        loginUser(email, password)
+        .then((token) => {
+            dispatch(signIn(token));
 
-            fetch('http://localhost:3001/api/v1/user/login', {
-            method: 'POST',
-            headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-            body: JSON.stringify({
-            email: email,
-            password: password,
-            }),
-        })
-        .then((response) => {
-            console.log(response);
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Erreur de connexion');
+            // Enregistrement dans le localstorage des info de connexion
+            const rememberMeCheckbox = document.getElementById("remember-me");
+            if (rememberMeCheckbox && rememberMeCheckbox.checked) {
+                // Stocke l'email et le mot de passe dans le localStorage
+                localStorage.setItem("rememberedEmail", email);
+                localStorage.setItem("rememberedPassword", password);
+            } 
+            else {
+                // Efface les données du localStorage si "Remember me" n'est pas coché
+                localStorage.removeItem("rememberedEmail");
+                localStorage.removeItem("rememberedPassword");
             }
-        })
-        .then((data) => {
-        const token = data.body.token;
-        localStorage.setItem("token", JSON.stringify(token))
-        dispatch(signIn(token));
-        // console.log(token); vérification token ok 
-        // Si le token est bien présent on renvois l'user sur la page /user
-        navigate('/user');
-        })
+
+            navigate('/user');
+          })
         .catch((error) => {
             console.error('Une erreur s\'est produite :', error);
             setError('Une erreur s\'est produite lors de la connexion.');
